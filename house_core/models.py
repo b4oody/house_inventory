@@ -4,7 +4,7 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from config.settings import AUTH_USER_MODEL
+from config import settings
 
 
 class WarrantyUntil(models.TextChoices):
@@ -20,7 +20,7 @@ class User(AbstractUser):
 class Apartment(models.Model):
     apartment_name = models.CharField(max_length=100, unique=True)
     user = models.ForeignKey(
-        AUTH_USER_MODEL,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="apartments"
     )
