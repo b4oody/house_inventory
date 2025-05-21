@@ -1,0 +1,46 @@
+{% extends "base/base.html" %}
+{% load extra_tags %}
+
+{% block title %}
+  <title>Apartments - HomeStock</title>
+{% endblock %}
+
+{% block content %}
+  <main>
+    <h1>My Apartments</h1>
+    <a class="btn" href="add_apartment.html">➕ Add Apartment</a>
+    <table>
+      <thead>
+      <tr>
+        {% for field in apartments_fields %}
+          <th>{{ field.verbose_name }}</th>
+        {% endfor %}
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      {% for apartment in apartments %}
+        <tr>
+          {% for field in apartments_fields %}
+            {% if apartment|get_field:field.name %}
+              <td>{{ apartment|get_field:field.name }}</td>
+            {% else %}
+              <td>No Info</td>
+            {% endif %}
+          {% endfor %}
+          <td>
+            <a class="btn-small" href="apartment.html">View</a>
+            <a class="btn-small" href="edit_apartment.html">Edit</a>
+            <a class="btn-small btn-danger" href="delete_apartment.html">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% block pagination %}
+      {% include 'includes/pagination/pagination.html' %}
+    {% endblock %}
+
+  </main>
+{% endblock %}
