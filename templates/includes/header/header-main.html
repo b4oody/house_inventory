@@ -1,0 +1,13 @@
+{% block header %}
+  <aside class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="{% url 'house_core:apartments_view' %}">Apartments</a></li>
+        <li><a href="{% url 'house_core:items_view' %}">Items</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ul>
+    </nav>
+  </aside>
+{% endblock %}
