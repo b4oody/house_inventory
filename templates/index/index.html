@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>HomeStock</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<header>
+  <div class="logo">🏠 HomeStock</div>
+</header>
+<main>
+  <section class="hero">
+    <h1>Керуйте своїм майном легко</h1>
+    <p>HomeStock допоможе вам стежити за усіма предметами у ваших квартирах, їх вартістю та історією — у кілька
+      кліків.</p>
+    <div class="actions">
+      <a href="dashboard.html" class="btn">Увійти</a>
+      <a href="#" class="btn btn-outline">Зареєструватися</a>
+    </div>
+  </section>
+  <section style="padding:2rem 1rem;max-width:900px;margin:auto;">
+    <h2 style="text-align:center;margin-bottom:1.5rem;">Можливості</h2>
+    <div class="cards">
+      <div class="card"><h3>Інвентаризація</h3>
+        <p>Зберігайте перелік усіх речей у кімнатах і квартирах.</p></div>
+      <div class="card"><h3>Оцінка вартості</h3>
+        <p>Порівнюйте вартість придбання та поточну вартість майна.</p></div>
+      <div class="card"><h3>Звіти</h3>
+        <p>Отримуйте миттєві звіти по кожній квартирі та кімнаті.</p></div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
