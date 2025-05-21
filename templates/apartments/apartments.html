@@ -30,7 +30,7 @@
             {% endif %}
           {% endfor %}
           <td>
-            <a class="btn-small" href="apartment.html">View</a>
+            <a class="btn-small" href="{% url 'house_core:pk_apartment_view' apartment.id %}">View</a>
             <a class="btn-small" href="edit_apartment.html">Edit</a>
             <a class="btn-small btn-danger" href="delete_apartment.html">Delete</a>
           </td>

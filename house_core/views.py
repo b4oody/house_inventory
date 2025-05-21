@@ -52,3 +52,16 @@ def apartments_page_view(request: HttpRequest) -> HttpResponse:
         "apartments/apartments.html",
         context=context
     )
+
+
+def apartment_page_view(request: HttpRequest, pk: id) -> HttpResponse:
+    apartment = Apartment.objects.get(pk=pk)
+
+    context = {
+        "apartment": apartment,
+    }
+    return render(
+        request,
+        "apartments/apartment.html",
+        context=context
+    )
