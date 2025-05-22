@@ -3,7 +3,9 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
+from django.contrib.auth import login
 
+from house_core.forms import UserRegistrationForm
 from house_core.models import Item, Apartment
 
 
@@ -90,3 +92,14 @@ class ApartmentDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Apartment
     template_name = "apartments/delete_apartment_form.html"
     success_url = reverse_lazy("house_core:apartments_view")
+
+
+class UserRegistrationView(generic.CreateView):
+    form_class = UserRegistrationForm
+    template_name = "registration/register.html"
+    success_url = reverse_lazy("house_core:apartments_view")
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        login(self.request, self.object)
+        return response
