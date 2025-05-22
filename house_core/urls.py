@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from house_core.views import (
     index_page_view,
@@ -11,8 +11,12 @@ from house_core.views import (
 )
 
 urlpatterns = [
+
+    path("", include("django.contrib.auth.urls")),
+
     path("", index_page_view, name="index_view"),
     path("home/items/", items_page_view, name="items_view"),
+
     path("home/apartments/", apartments_page_view, name="apartments_view"),
     path("home/apartment/<int:pk>/", apartment_page_view, name="pk_apartment_view"),
     path("home/apartment/edit/<int:pk>/", ApartmentUpdateView.as_view(), name="pk_apartment_edit_view"),
