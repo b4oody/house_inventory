@@ -52,14 +52,22 @@ class Apartment(models.Model):
 
 
 class Room(models.Model):
-    room_name = models.CharField(max_length=100, )
-    room_description = models.TextField(blank=True, null=True)
+    room_name = models.CharField(max_length=100, verbose_name="Room Name")
+    room_description = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name="Description",
+    )
     apartment = models.ForeignKey(
         Apartment,
         on_delete=models.CASCADE,
         related_name="rooms"
     )
-    area_m2 = models.FloatField(blank=True, null=True)
+    area_m2 = models.FloatField(
+        blank=True,
+        null=True,
+        verbose_name="Area(m²)",
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
