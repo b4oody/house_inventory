@@ -1,6 +1,8 @@
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views import generic
 
 from house_core.models import Item, Apartment
 
@@ -65,3 +67,26 @@ def apartment_page_view(request: HttpRequest, pk: id) -> HttpResponse:
         "apartments/apartment.html",
         context=context
     )
+
+
+class ApartmentUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Apartment
+    template_name = "apartments/update_apartment_form.html"
+    fields = [
+        "apartment_name",
+        "address",
+        "apartment_description",
+        "purchase_price"
+    ]
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "house_core:pk_apartment_view",
+            kwargs={"pk": self.object.pk}
+        )
+
+
+class ApartmentDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Apartment
+    template_name = "apartments/delete_apartment_form.html"
+    success_url = reverse_lazy("house_core:apartments_view")
