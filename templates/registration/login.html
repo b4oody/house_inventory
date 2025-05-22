@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+  <title>Login - HomeStock</title>
+{% endblock %}
+
+{% block content %}
+  <main class="auth">
+    <div class="form-wrapper">
+      <h1>Увійти</h1>
+      <form id="form" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn" type="submit">Увійти</button>
+        <a class="btn btn-outline" onclick="window.history.back();">Назад</a>
+      </form>
+    </div>
+  </main>
+{% endblock %}
