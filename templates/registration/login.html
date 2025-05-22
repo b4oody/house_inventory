@@ -14,6 +14,9 @@
         <button class="btn" type="submit">Увійти</button>
         <a class="btn btn-outline" onclick="window.history.back();">Назад</a>
       </form>
+      <p style="margin-top:0.8rem;">Не маєте акаунту?
+        <a href="{% url 'house_core:registration' %}">Зареєструватися</a>
+      </p>
     </div>
   </main>
 {% endblock %}
