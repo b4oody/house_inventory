@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+
+
+{% block title %}
+  <title>Register - HomeStock</title>
+{% endblock %}
+
+{% block content %}
+  <main class="auth">
+    <div class="form-wrapper">
+      <h1>Реєстрація</h1>
+      <form id="form" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn" type="submit">Створити акаунт</button>
+        <a class="btn btn-outline" onclick="window.history.back();">Назад</a>
+      </form>
+      <p style="margin-top:0.8rem;">Вже маєте акаунт? <a href="{% url 'house_core:login' %}">Увійти</a></p>
+    </div>
+  </main>
+{% endblock %}
