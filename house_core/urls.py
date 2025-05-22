@@ -8,6 +8,7 @@ from house_core.views import (
     ApartmentUpdateView,
     ApartmentDeleteView,
     UserRegistrationView,
+    ApartmentCreateView,
 
 )
 
@@ -16,12 +17,23 @@ urlpatterns = [
     path("", include("django.contrib.auth.urls")),
     path("registration/", UserRegistrationView.as_view(), name="registration"),
     path("", index_page_view, name="index_view"),
+
     path("home/items/", items_page_view, name="items_view"),
 
     path("home/apartments/", apartments_page_view, name="apartments_view"),
+    path("home/create-aparment/", ApartmentCreateView.as_view(), name="create_apartment"),
     path("home/apartment/<int:pk>/", apartment_page_view, name="pk_apartment_view"),
-    path("home/apartment/edit/<int:pk>/", ApartmentUpdateView.as_view(), name="pk_apartment_edit_view"),
-    path("home/apartment/delete/<int:pk>/", ApartmentDeleteView.as_view(), name="pk_apartment_delete_view"),
+
+    path(
+        "home/update-apartment/<int:pk>/",
+        ApartmentUpdateView.as_view(),
+        name="pk_apartment_edit_view"
+    ),
+    path(
+        "home/delete-apartment/<int:pk>/",
+        ApartmentDeleteView.as_view(),
+        name="pk_apartment_delete_view"
+    ),
 
 ]
 

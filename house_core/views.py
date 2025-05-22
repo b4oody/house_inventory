@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
@@ -25,6 +27,7 @@ def index_page_view(request: HttpRequest) -> HttpResponse:
     return render(request, "index/index.html")
 
 
+@login_required
 def items_page_view(request: HttpRequest) -> HttpResponse:
     context = {
         "items": Item.objects.all(),
@@ -36,6 +39,7 @@ def items_page_view(request: HttpRequest) -> HttpResponse:
     )
 
 
+@login_required
 def apartments_page_view(request: HttpRequest) -> HttpResponse:
     exclude = {"id", "user", "created_at"}
     apartments = Apartment.objects.all()
@@ -58,6 +62,7 @@ def apartments_page_view(request: HttpRequest) -> HttpResponse:
     )
 
 
+@login_required
 def apartment_page_view(request: HttpRequest, pk: id) -> HttpResponse:
     apartment = Apartment.objects.get(pk=pk)
 
@@ -103,3 +108,24 @@ class UserRegistrationView(generic.CreateView):
         response = super().form_valid(form)
         login(self.request, self.object)
         return response
+
+
+class ApartmentCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Apartment
+    template_name = "apartments/create_apartment_form.html"
+    fields = [
+        "apartment_name",
+        "address",
+        "apartment_description",
+        "purchase_price"
+    ]
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "house_core:pk_apartment_view",
+            kwargs={"pk": self.object.pk}
+        )
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

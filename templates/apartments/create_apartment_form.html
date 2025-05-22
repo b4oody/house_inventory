@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+  <title>Edit apartment - HomeStock</title>
+{% endblock %}
+
+{% block content %}
+  <main>
+    <h1>Edit Apartment</h1>
+    <form id="form" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn">Save</button>
+      <a class="btn btn-outline" href="apartments.html">Cancel</a>
+    </form>
+  </main>
+{% endblock %}

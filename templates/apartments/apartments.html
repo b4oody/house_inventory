@@ -8,7 +8,7 @@
 {% block content %}
   <main>
     <h1>My Apartments</h1>
-    <a class="btn" href="add_apartment.html">➕ Add Apartment</a>
+    <a class="btn" href="{% url 'house_core:create_apartment' %}">➕ Add Apartment</a>
     <table>
       <thead>
       <tr>
