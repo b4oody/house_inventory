@@ -31,9 +31,9 @@
             {% endif %}
           {% endfor %}
           <td>
-            <a class="btn-small" href="#">View</a>
-            <a class="btn-small" href="#">Edit</a>
-            <a class="btn-small btn-danger" href="#">
+            <a class="btn-small" href="{% url 'house_core:pk_room_view' room.id %}">View</a>
+            <a class="btn-small" href="{% url 'house_core:pk_room_edit_view' room.id %}">Edit</a>
+            <a class="btn-small btn-danger" href="{% url 'house_core:pk_room_delete_view' room.id %}">
               Delete
             </a>
           </td>

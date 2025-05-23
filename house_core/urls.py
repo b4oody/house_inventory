@@ -10,6 +10,8 @@ from house_core.views import (
     UserRegistrationView,
     ApartmentCreateView,
     room_page_view,
+    RoomUpdateView,
+    RoomDeleteView,
 
 )
 
@@ -37,6 +39,16 @@ urlpatterns = [
     ),
 
     path("home/room/<int:pk>/", room_page_view, name="pk_room_view"),
+    path(
+        "home/update-room/<int:pk>/",
+        RoomUpdateView.as_view(),
+        name="pk_room_edit_view"
+    ),
+    path(
+        "home/delete-room/<int:pk>/",
+        RoomDeleteView.as_view(),
+        name="pk_room_delete_view"
+    ),
 
 ]
 

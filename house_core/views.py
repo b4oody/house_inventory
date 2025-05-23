@@ -167,3 +167,26 @@ def room_page_view(request: HttpRequest, pk: id) -> HttpResponse:
         "rooms/room.html",
         context=context
     )
+
+
+class RoomUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Room
+    template_name = "rooms/update_room_form.html"
+    fields = [
+        "room_name",
+        "room_description",
+        "area_m2",
+    ]
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "house_core:pk_room_view",
+            kwargs={"pk": self.object.pk}
+        )
+
+
+class RoomDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Room
+    template_name = "rooms/delete_room_form.html"
+    success_url = reverse_lazy("house_core:apartments_view")
+
