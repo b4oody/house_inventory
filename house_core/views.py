@@ -7,8 +7,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth import login
 
-from house_core.forms import UserRegistrationForm
-from house_core.models import Item, Apartment, Room
+from house_core.forms import UserRegistrationForm, CreateRoomForm
 from house_core.models import Item, Apartment, Room, User
 
 
@@ -196,3 +195,19 @@ class RoomDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = "rooms/delete_room_form.html"
     success_url = reverse_lazy("house_core:apartments_view")
 
+
+class RoomCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Room
+    form_class = CreateRoomForm
+    template_name = "rooms/create_room_form.html"
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "house_core:pk_room_view",
+            kwargs={"pk": self.object.pk}
+        )
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs

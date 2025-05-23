@@ -9,7 +9,7 @@
   <main>
     <h1>Apartment: {{ apartment.apartment_name }}</h1>
     <p>Address: {{ apartment.address }}</p>
-    <a class="btn" href="add_room.html">➕ Add Room</a>
+    <a class="btn" href="{% url 'house_core:create_room' %}">➕ Add Room</a>
     <table>
       <thead>
       <tr>
