@@ -3,14 +3,15 @@
     <nav>
       <ul>
         <li>
-          <a href="profile.html">
+          <a href="{% url 'house_core:profile_view' user.pk %}">
             {% if user.is_authenticated %}
               Profile {{ user.username }}
             {% else %}
               Profile
             {% endif %}
           </a>
-        </li><br>
+        </li>
+        <br>
         <li><a href="dashboard.html">Dashboard</a></li>
         <li><a href="{% url 'house_core:apartments_view' %}">Apartments</a></li>
         <li><a href="{% url 'house_core:items_view' %}">Items</a></li>

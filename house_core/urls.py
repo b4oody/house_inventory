@@ -2,6 +2,7 @@ from django.urls import path, include
 
 from house_core.views import (
     index_page_view,
+    ProfilePageView,
     items_page_view,
     apartments_page_view,
     apartment_page_view,
@@ -19,6 +20,8 @@ urlpatterns = [
 
     path("", include("django.contrib.auth.urls")),
     path("registration/", UserRegistrationView.as_view(), name="registration"),
+
+    path("home/profile/<int:pk>/", ProfilePageView.as_view(), name="profile_view"),
     path("", index_page_view, name="index_view"),
 
     path("home/items/", items_page_view, name="items_view"),

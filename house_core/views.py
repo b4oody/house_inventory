@@ -9,6 +9,7 @@ from django.contrib.auth import login
 
 from house_core.forms import UserRegistrationForm
 from house_core.models import Item, Apartment, Room
+from house_core.models import Item, Apartment, Room, User
 
 
 def pagination(request, model_of_list):
@@ -25,6 +26,11 @@ def pagination(request, model_of_list):
 
 def index_page_view(request: HttpRequest) -> HttpResponse:
     return render(request, "index/index.html")
+
+
+class ProfilePageView(generic.DetailView):
+    model = User
+    template_name = "profile/profile.html"
 
 
 @login_required
