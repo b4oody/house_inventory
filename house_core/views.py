@@ -47,7 +47,7 @@ def items_page_view(request: HttpRequest) -> HttpResponse:
 @login_required
 def apartments_page_view(request: HttpRequest) -> HttpResponse:
     exclude = {"id", "user", "created_at"}
-    apartments = Apartment.objects.all()
+    apartments = Apartment.objects.filter(user=request.user)
     page_obj = pagination(request, apartments)
 
     fields = [
