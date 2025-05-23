@@ -8,7 +8,7 @@ from django.views import generic
 from django.contrib.auth import login
 
 from house_core.forms import UserRegistrationForm
-from house_core.models import Item, Apartment
+from house_core.models import Item, Apartment, Room
 
 
 def pagination(request, model_of_list):
@@ -66,8 +66,20 @@ def apartments_page_view(request: HttpRequest) -> HttpResponse:
 def apartment_page_view(request: HttpRequest, pk: id) -> HttpResponse:
     apartment = Apartment.objects.get(pk=pk)
 
+    exclude = {"id", "apartment", "created_at"}
+    rooms = Room.objects.filter(apartment=apartment)
+    page_obj = pagination(request, rooms)
+
+    fields = [
+        field for field in Room._meta.concrete_fields
+        if field.name not in exclude
+    ]
+
     context = {
         "apartment": apartment,
+        "room_fields": fields,
+        "page_obj": page_obj,
+        "rooms": page_obj
     }
     return render(
         request,
