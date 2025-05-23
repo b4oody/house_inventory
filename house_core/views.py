@@ -141,3 +141,29 @@ class ApartmentCreateView(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+@login_required
+def room_page_view(request: HttpRequest, pk: id) -> HttpResponse:
+    room = Room.objects.get(pk=pk)
+
+    exclude = {"id", "room", "created_at"}
+    items = Item.objects.filter(room=room)
+    page_obj = pagination(request, items)
+
+    fields = [
+        field for field in Item._meta.concrete_fields
+        if field.name not in exclude
+    ]
+
+    context = {
+        "room": room,
+        "item_fields": fields,
+        "page_obj": page_obj,
+        "items": page_obj
+    }
+    return render(
+        request,
+        "rooms/room.html",
+        context=context
+    )
