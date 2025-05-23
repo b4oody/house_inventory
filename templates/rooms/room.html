@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+  <title>Room - HomeStock</title>
+{% endblock %}
+
+
+{% block content %}
+  <main>
+    <h1>Room: Спальня</h1>
+    <p>Apartment: Основна квартира</p>
+    <a class="btn" href="add_item.html">➕ Add Item</a>
+    <table>
+      <thead>
+      <tr>
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Purchase Price</th>
+        <th>Current Value</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Ноутбук</td>
+        <td>1</td>
+        <td>₴30 000</td>
+        <td>₴25 000</td>
+        <td>
+          <a class="btn-small" href="edit_item.html">Edit</a>
+          <a class="btn-small btn-danger" href="delete_item.html">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </main>
+{% endblock %}
