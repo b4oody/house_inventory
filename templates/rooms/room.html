@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load extra_tags %}
 
 {% block title %}
   <title>Room - HomeStock</title>
@@ -7,31 +8,64 @@
 
 {% block content %}
   <main>
-    <h1>Room: Спальня</h1>
-    <p>Apartment: Основна квартира</p>
-    <a class="btn" href="add_item.html">➕ Add Item</a>
+    <h1>Room: {{ room.room_name }}</h1>
+    <p>Apartment: {{ room.apartment.apartment_name }}</p>
+    <a class="btn" href="{% url 'house_core:pk_item_create_view' %}">➕ Add Item</a>
     <table>
       <thead>
       <tr>
-        <th>Item</th>
-        <th>Qty</th>
-        <th>Purchase Price</th>
-        <th>Current Value</th>
+        <th>Image</th>
+        {% for field in item_fields %}
+          <th>{{ field.verbose_name }}</th>
+        {% endfor %}
+        <th>Tags</th>
+        <th>Categories</th>
         <th>Actions</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>Ноутбук</td>
-        <td>1</td>
-        <td>₴30 000</td>
-        <td>₴25 000</td>
-        <td>
-          <a class="btn-small" href="edit_item.html">Edit</a>
-          <a class="btn-small btn-danger" href="delete_item.html">Delete</a>
-        </td>
-      </tr>
+      {% for item in items %}
+        <tr>
+          <td>
+            {% if item.photo_url %}
+              <img src="{{ item.photo_url.url }}" alt="Picture of Item" class="table-photo">
+            {% else %}
+              Photo missing
+            {% endif %}
+          </td>
+          {% for field in item_fields %}
+            <td>
+              {% if item|get_field:field.name %}
+                {{ item|get_field:field.name }}
+              {% else %}
+                No Info
+              {% endif %}
+            </td>
+          {% endfor %}
+          <td>
+            {% if item.tags.all %}
+              {{ item.tags.all|join:", " }}
+            {% else %}
+              No Tags
+            {% endif %}
+          </td>
+          <td>
+            {% if item.categories.all %}
+              {{ item.categories.all|join:", " }}
+            {% else %}
+              No Categories
+            {% endif %}
+          </td>
+          <td>
+            <a class="btn-small" href="{% url 'house_core:pk_item_update_view' item.pk %}">Edit</a>
+            <a class="btn-small btn-danger" href="{% url 'house_core:pk_item_delete_view' item.pk %}">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
       </tbody>
     </table>
+    {% block pagination %}
+      {% include 'includes/pagination/pagination.html' %}
+    {% endblock %}
   </main>
 {% endblock %}
