@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+  <title>Reports - HomeStock</title>
+{% endblock %}
+
+
+{% block content %}
+  <main>
+    <h1>Reports</h1>
+    <div class="cards">
+      <div class="card"><h2>Total Items</h2>
+        <p>{% if total_items %}{{ total_items }}{% else %}0{% endif %}</p>
+      </div>
+      <div class="card"><h2>Total Purchase Value</h2>
+        <p>₴{% if total_purchase_price %}{{ total_purchase_price }}{% else %}0{% endif %}</p>
+      </div>
+      <div class="card"><h2>Total Current Value</h2>
+        <p>₴{% if total_current_price %}{{ total_current_price }}{% else %}0{% endif %}</p>
+      </div>
+      <div class="card"><h2>Difference</h2>
+        <p>{% if difference_total %}{{ difference_total }}%{% else %}0%{% endif %}</p>
+      </div>
+    </div>
+    <h2>By Apartment</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Apartment</th>
+        <th>Purchase Value</th>
+        <th>Current Value</th>
+        <th>Total Item</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for apartment in apartments_sums %}
+        <tr>
+          <td>{{ apartment.apartment_name }}</td>
+          <td>₴{{ apartment.total_purchase_price }}</td>
+          <td>₴{{ apartment.total_current_price }}</td>
+          <td>{{ apartment.total_items }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </main>
+{% endblock %}

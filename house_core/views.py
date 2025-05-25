@@ -1,6 +1,9 @@
+from decimal import Decimal
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.db.models import Sum, Count
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -33,9 +36,56 @@ class ProfilePageView(generic.DetailView):
 
 
 @login_required
+def report_page_view(request: HttpRequest) -> HttpResponse:
+    apartments = Apartment.objects.filter(user=request.user)
+    rooms = Room.objects.filter(apartment__in=apartments)
+    items = Item.objects.filter(room__in=rooms)
+
+    total_value = items.aggregate(
+        total_items=Count("item_name"),
+        total_purchase_price=Sum("purchase_price"),
+        total_current_price=Sum("current_price"),
+    )
+    total_purchase_price = total_value.get("total_purchase_price") or Decimal("0")
+    total_current_price = total_value.get("total_current_price") or Decimal("0")
+
+    if total_purchase_price == Decimal("0"):
+        difference_total = Decimal("0")
+    else:
+        difference_total = ((total_purchase_price - total_current_price) /
+                            total_purchase_price) * 100
+
+    apartments_sums = Apartment.objects.filter(user=request.user).annotate(
+        total_purchase_price=Sum("rooms__items__purchase_price"),
+        total_current_price=Sum("rooms__items__current_price"),
+        total_items=Count("rooms__items"),
+    )
+
+    # rooms_sums = Room.objects.filter(apartment__user=request.user).annotate(
+    #     total_purchase_price=Sum("item__purchase_price"),
+    #     total_current_price=Sum("item__current_price"),
+    #     total_items=Count("item"),
+    # )
+
+    context = {
+        "total_items": total_value.get("total_items", 0),
+        "total_current_price": total_current_price,
+        "total_purchase_price": total_purchase_price,
+        "difference_total": difference_total,
+        "apartments_sums": apartments_sums
+    }
+
+    return render(
+        request,
+        "reports/reports.html",
+        context=context,
+    )
+
+
+@login_required
 def items_page_view(request: HttpRequest) -> HttpResponse:
     context = {
-        "items": Item.objects.all(),
+        "items": Item.objects.filter(room__apartment__user=request.user),
     }
     return render(
         request,

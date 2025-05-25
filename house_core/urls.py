@@ -17,8 +17,8 @@ from house_core.views import (
     RoomCreateView,
     ItemUpdateView,
     ItemDeleteView,
-    ItemCreateView
-
+    ItemCreateView,
+    report_page_view,
 )
 
 urlpatterns = [
@@ -27,6 +27,8 @@ urlpatterns = [
     path("registration/", UserRegistrationView.as_view(), name="registration"),
 
     path("home/profile/<int:pk>/", ProfilePageView.as_view(), name="profile_view"),
+    path("home/reports/", report_page_view, name="reports_view"),
+
     path("", index_page_view, name="index_view"),
 
     path("home/items/", items_page_view, name="items_view"),
