@@ -67,7 +67,6 @@ urlpatterns = [
         RoomDeleteView.as_view(),
         name="pk_room_delete_view"
     ),
-
 ]
 
 app_name = "house_core"
