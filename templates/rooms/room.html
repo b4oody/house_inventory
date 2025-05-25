@@ -11,59 +11,9 @@
     <h1>Room: {{ room.room_name }}</h1>
     <p>Apartment: {{ room.apartment.apartment_name }}</p>
     <a class="btn" href="{% url 'house_core:pk_item_create_view' %}">➕ Add Item</a>
-    <table>
-      <thead>
-      <tr>
-        <th>Image</th>
-        {% for field in item_fields %}
-          <th>{{ field.verbose_name }}</th>
-        {% endfor %}
-        <th>Tags</th>
-        <th>Categories</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      {% for item in items %}
-        <tr>
-          <td>
-            {% if item.photo_url %}
-              <img src="{{ item.photo_url.url }}" alt="Picture of Item" class="table-photo">
-            {% else %}
-              Photo missing
-            {% endif %}
-          </td>
-          {% for field in item_fields %}
-            <td>
-              {% if item|get_field:field.name %}
-                {{ item|get_field:field.name }}
-              {% else %}
-                No Info
-              {% endif %}
-            </td>
-          {% endfor %}
-          <td>
-            {% if item.tags.all %}
-              {{ item.tags.all|join:", " }}
-            {% else %}
-              No Tags
-            {% endif %}
-          </td>
-          <td>
-            {% if item.categories.all %}
-              {{ item.categories.all|join:", " }}
-            {% else %}
-              No Categories
-            {% endif %}
-          </td>
-          <td>
-            <a class="btn-small" href="{% url 'house_core:pk_item_update_view' item.pk %}">Edit</a>
-            <a class="btn-small btn-danger" href="{% url 'house_core:pk_item_delete_view' item.pk %}">Delete</a>
-          </td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+    {% block table %}
+      {% include "includes/table_of_items.html" %}
+    {% endblock %}
     {% block pagination %}
       {% include 'includes/pagination/pagination.html' %}
     {% endblock %}
