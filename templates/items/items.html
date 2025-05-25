@@ -1,0 +1,29 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+  <title>Items - HomeStock</title>
+{% endblock %}
+
+{% block content %}
+  <main>
+    <h1>All Items</h1>
+    <a class="btn" href="{% url 'house_core:pk_item_create_view' %}">➕ Add Item</a>
+    <div class="filter">
+      <select>
+        <option>All Apartments</option>
+      </select>
+      <select>
+        <option>All Rooms</option>
+      </select>
+      <input type="text" placeholder="Search…"/>
+      <button class="btn-small">Filter</button>
+    </div>
+    {% block table %}
+      {% include "includes/table_of_items.html" %}
+    {% endblock %}
+
+    {% block pagination %}
+      {% include 'includes/pagination/pagination.html' %}
+    {% endblock %}
+  </main>
+{% endblock %}

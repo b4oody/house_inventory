@@ -61,11 +61,11 @@ def report_page_view(request: HttpRequest) -> HttpResponse:
         total_items=Count("rooms__items"),
     )
 
-    # rooms_sums = Room.objects.filter(apartment__user=request.user).annotate(
-    #     total_purchase_price=Sum("item__purchase_price"),
-    #     total_current_price=Sum("item__current_price"),
-    #     total_items=Count("item"),
-    # )
+    rooms_sums = Room.objects.filter(apartment__user=request.user).annotate(
+        total_purchase_price=Sum("items__purchase_price"),
+        total_current_price=Sum("items__current_price"),
+        total_items=Count("items"),
+    )
 
     context = {
         "total_items": total_value.get("total_items", 0),
@@ -84,9 +84,21 @@ def report_page_view(request: HttpRequest) -> HttpResponse:
 
 @login_required
 def items_page_view(request: HttpRequest) -> HttpResponse:
+    items = Item.objects.filter(room__apartment__user=request.user)
+    exclude = {"id", "photo_url", "created_at"}
+    page_obj = pagination(request, items)
+
+    fields = [
+        field for field in Item._meta.concrete_fields
+        if field.name not in exclude
+    ]
+
     context = {
-        "items": Item.objects.filter(room__apartment__user=request.user),
+        "item_fields": fields,
+        "page_obj": page_obj,
+        "items": page_obj
     }
+
     return render(
         request,
         "items/items.html",
