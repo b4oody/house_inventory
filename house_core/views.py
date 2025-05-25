@@ -211,3 +211,29 @@ class RoomCreateView(LoginRequiredMixin, generic.CreateView):
         kwargs = super().get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
+
+
+class ItemUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Item
+    template_name = "items/update_item_form.html"
+    fields = "__all__"
+
+    success_url = reverse_lazy("house_core:items_view")
+
+
+class ItemDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Item
+    template_name = "items/delete_item_form.html"
+    success_url = reverse_lazy("house_core:items_view")
+
+
+class ItemCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Item
+    form_class = CreateItemForm
+    template_name = "items/create_item_form.html"
+    success_url = reverse_lazy("house_core:items_view")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs

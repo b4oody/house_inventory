@@ -26,6 +26,10 @@ urlpatterns = [
     path("", index_page_view, name="index_view"),
 
     path("home/items/", items_page_view, name="items_view"),
+    path("home/create-item/", ItemCreateView.as_view(), name="pk_item_create_view"),
+    path("home/update-item/<int:pk>/", ItemUpdateView.as_view(), name="pk_item_update_view"),
+    path("home/delete-item/<int:pk>/", ItemDeleteView.as_view(), name="pk_item_delete_view"),
+
 
     path("home/apartments/", apartments_page_view, name="apartments_view"),
     path("home/create-aparment/", ApartmentCreateView.as_view(), name="create_apartment"),

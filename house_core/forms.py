@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from house_core.models import User, Room, Apartment
+from house_core.models import User, Room, Apartment, Item
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -27,3 +27,17 @@ class CreateRoomForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         user_apartments = Apartment.objects.filter(user=self.user)
         self.fields["apartment"].queryset = user_apartments
+
+
+class CreateItemForm(forms.ModelForm):
+    room = forms.ModelChoiceField(queryset=Room.objects.all())
+
+    class Meta:
+        model = Item
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user", None)
+        super().__init__(*args, **kwargs)
+        user_rooms = Room.objects.filter(apartment__user=self.user)
+        self.fields["room"].queryset = user_rooms
