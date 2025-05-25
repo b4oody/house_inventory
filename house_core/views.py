@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth import login
 
-from house_core.forms import UserRegistrationForm, CreateRoomForm
+from house_core.forms import UserRegistrationForm, CreateRoomForm, CreateItemForm
 from house_core.models import Item, Apartment, Room, User
 
 
@@ -237,3 +237,26 @@ class ItemCreateView(LoginRequiredMixin, generic.CreateView):
         kwargs = super().get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
+
+
+@login_required
+def all_rooms_page_view(request: HttpRequest) -> HttpResponse:
+    exclude = {"id", "created_at"}
+    rooms = Room.objects.filter(apartment__user=request.user)
+    page_obj = pagination(request, rooms)
+
+    fields = [
+        field for field in Room._meta.concrete_fields
+        if field.name not in exclude
+    ]
+
+    context = {
+        "rooms_fields": fields,
+        "page_obj": page_obj,
+        "rooms": page_obj
+    }
+    return render(
+        request,
+        "rooms/rooms.html",
+        context=context
+    )

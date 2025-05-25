@@ -1,0 +1,48 @@
+{% extends "base/base.html" %}
+{% load extra_tags %}
+
+{% block title %}
+  <title>Rooms - HomeStock</title>
+{% endblock %}
+
+{% block content %}
+  <main>
+    <h1>My Rooms</h1>
+    <a class="btn" href="{% url 'house_core:create_room' %}">➕ Add Room</a>
+    <table>
+      <thead>
+      <tr>
+        {% for field in rooms_fields %}
+          <th>{{ field.verbose_name }}</th>
+        {% endfor %}
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      {% for room in rooms %}
+        <tr>
+          {% for field in rooms_fields %}
+            {% if room|get_field:field.name %}
+              <td>{{ room|get_field:field.name }}</td>
+            {% else %}
+              <td>No Info</td>
+            {% endif %}
+          {% endfor %}
+          <td>
+            <a class="btn-small" href="{% url 'house_core:pk_room_view' room.pk %}">View</a>
+            <a class="btn-small" href="{% url 'house_core:pk_room_edit_view' room.pk %}">Edit</a>
+            <a class="btn-small btn-danger" href="{% url 'house_core:pk_room_delete_view' room.pk %}">
+              Delete
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% block pagination %}
+      {% include 'includes/pagination/pagination.html' %}
+    {% endblock %}
+
+  </main>
+{% endblock %}
