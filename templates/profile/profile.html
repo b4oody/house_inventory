@@ -10,7 +10,7 @@
     <h1>Profile</h1>
     <form action="{% url 'house_core:logout' %}" method="post">
       {% csrf_token %}
-      <button type="submit">Log Out</button>
+      <button class="btn" type="submit">Log Out</button>
     </form>
     <p>Email: user@example.com</p>
     <a class="btn" href="#">Change Password</a>
