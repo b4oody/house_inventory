@@ -20,6 +20,7 @@ from house_core.views import (
     ItemCreateView,
     report_page_view,
 )
+from house_core.export_backup import export_to_excel
 
 urlpatterns = [
 
@@ -35,7 +36,6 @@ urlpatterns = [
     path("home/create-item/", ItemCreateView.as_view(), name="pk_item_create_view"),
     path("home/update-item/<int:pk>/", ItemUpdateView.as_view(), name="pk_item_update_view"),
     path("home/delete-item/<int:pk>/", ItemDeleteView.as_view(), name="pk_item_delete_view"),
-
 
     path("home/apartments/", apartments_page_view, name="apartments_view"),
     path("home/create-aparment/", ApartmentCreateView.as_view(), name="create_apartment"),
@@ -69,6 +69,8 @@ urlpatterns = [
         RoomDeleteView.as_view(),
         name="pk_room_delete_view"
     ),
+
+    path("home/reports/export/", export_to_excel, name="export"),
 ]
 
 app_name = "house_core"
