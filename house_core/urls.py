@@ -19,6 +19,8 @@ from house_core.views import (
     ItemDeleteView,
     ItemCreateView,
     report_page_view,
+    CreateTagView,
+    CreateCategoryView,
 )
 
 urlpatterns = [
@@ -33,8 +35,11 @@ urlpatterns = [
 
     path("home/items/", items_page_view, name="items_view"),
     path("home/create-item/", ItemCreateView.as_view(), name="pk_item_create_view"),
+    path("home/create-tag/", CreateTagView.as_view(), name="create_tag_view"),
+    path("home/create-category/", CreateCategoryView.as_view(), name="create_category_view"),
     path("home/update-item/<int:pk>/", ItemUpdateView.as_view(), name="pk_item_update_view"),
     path("home/delete-item/<int:pk>/", ItemDeleteView.as_view(), name="pk_item_delete_view"),
+
 
 
     path("home/apartments/", apartments_page_view, name="apartments_view"),

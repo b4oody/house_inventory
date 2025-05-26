@@ -8,6 +8,8 @@
   <main>
     <h1>All Items</h1>
     <a class="btn" href="{% url 'house_core:pk_item_create_view' %}">➕ Add Item</a>
+    <a class="btn" href="{% url 'house_core:create_tag_view' %}">➕ Add Tag</a>
+    <a class="btn" href="{% url 'house_core:create_category_view' %}">➕ Add Categories</a>
     <div class="filter">
       <form action="{% url 'house_core:items_view' %}" method="get">
         <select name="apartment" onchange="this.form.submit()">

@@ -16,7 +16,14 @@ from house_core.forms import (
     CreateItemForm,
     ItemFilterForm
 )
-from house_core.models import Item, Apartment, Room, User
+from house_core.models import (
+    Item,
+    Apartment,
+    Room,
+    User,
+    Tag,
+    Category
+)
 
 
 def pagination(request, model_of_list):
@@ -303,6 +310,20 @@ class ItemCreateView(LoginRequiredMixin, generic.CreateView):
         kwargs = super().get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
+
+
+class CreateTagView(LoginRequiredMixin, generic.CreateView):
+    model = Tag
+    fields = "__all__"
+    template_name = "items/create_tag_form.html"
+    success_url = reverse_lazy("house_core:items_view")
+
+
+class CreateCategoryView(LoginRequiredMixin, generic.CreateView):
+    model = Category
+    fields = "__all__"
+    template_name = "items/create_category_form.html"
+    success_url = reverse_lazy("house_core:items_view")
 
 
 @login_required
