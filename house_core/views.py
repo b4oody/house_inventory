@@ -187,12 +187,7 @@ class ApartmentUpdateView(LoginRequiredMixin, generic.UpdateView):
         "apartment_description",
         "purchase_price"
     ]
-
-    def get_success_url(self):
-        return reverse_lazy(
-            "house_core:pk_apartment_view",
-            kwargs={"pk": self.object.pk}
-        )
+    success_url = reverse_lazy("house_core:apartments_view")
 
 
 class ApartmentDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -221,12 +216,7 @@ class ApartmentCreateView(LoginRequiredMixin, generic.CreateView):
         "apartment_description",
         "purchase_price"
     ]
-
-    def get_success_url(self):
-        return reverse_lazy(
-            "house_core:pk_apartment_view",
-            kwargs={"pk": self.object.pk}
-        )
+    success_url = reverse_lazy("house_core:apartments_view")
 
     def form_valid(self, form):
         form.instance.user = self.request.user
