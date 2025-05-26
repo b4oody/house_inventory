@@ -253,12 +253,7 @@ class RoomUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Room
     template_name = "rooms/update_room_form.html"
     form_class = CreateUpdateRoomForm
-
-    def get_success_url(self):
-        return reverse_lazy(
-            "house_core:pk_room_view",
-            kwargs={"pk": self.object.pk}
-        )
+    success_url = reverse_lazy("house_core:rooms_view")
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -269,19 +264,14 @@ class RoomUpdateView(LoginRequiredMixin, generic.UpdateView):
 class RoomDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Room
     template_name = "rooms/delete_room_form.html"
-    success_url = reverse_lazy("house_core:apartments_view")
+    success_url = reverse_lazy("house_core:rooms_view")
 
 
 class RoomCreateView(LoginRequiredMixin, generic.CreateView):
     model = Room
     form_class = CreateUpdateRoomForm
     template_name = "rooms/create_room_form.html"
-
-    def get_success_url(self):
-        return reverse_lazy(
-            "house_core:pk_room_view",
-            kwargs={"pk": self.object.pk}
-        )
+    success_url = reverse_lazy("house_core:rooms_view")
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
