@@ -1,16 +1,16 @@
 from decimal import Decimal
 
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.db.models import Sum, Count
+from django.db.models import Sum, Count, Q
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
-from django.contrib.auth import login
 
-from house_core.forms import UserRegistrationForm, CreateRoomForm, CreateItemForm
+from house_core.forms import UserRegistrationForm, CreateRoomForm, CreateItemForm, ItemFilterForm
 from house_core.models import Item, Apartment, Room, User
 
 
@@ -86,17 +86,35 @@ def report_page_view(request: HttpRequest) -> HttpResponse:
 def items_page_view(request: HttpRequest) -> HttpResponse:
     items = Item.objects.filter(room__apartment__user=request.user)
     exclude = {"id", "photo_url", "created_at"}
-    page_obj = pagination(request, items)
 
     fields = [
         field for field in Item._meta.concrete_fields
         if field.name not in exclude
     ]
 
+    form = ItemFilterForm(request.GET, user=request.user)
+    if form.is_valid():
+        apartment = form.cleaned_data["apartment"]
+        room = form.cleaned_data["room"]
+        query = form.cleaned_data["query"]
+
+        if apartment and apartment != "all":
+            items = items.filter(room__apartment=apartment)
+
+        if room and room != "all":
+            items = items.filter(room=room)
+
+        if query:
+            items = items.filter(
+                Q(item_name__icontains=query) | Q(brand__icontains=query)
+            )
+
+    page_obj = pagination(request, items)
     context = {
         "item_fields": fields,
         "page_obj": page_obj,
-        "items": page_obj
+        "items": page_obj,
+        "form": form,
     }
 
     return render(

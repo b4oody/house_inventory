@@ -9,14 +9,29 @@
     <h1>All Items</h1>
     <a class="btn" href="{% url 'house_core:pk_item_create_view' %}">➕ Add Item</a>
     <div class="filter">
-      <select>
-        <option>All Apartments</option>
-      </select>
-      <select>
-        <option>All Rooms</option>
-      </select>
-      <input type="text" placeholder="Search…"/>
-      <button class="btn-small">Filter</button>
+      <form action="{% url 'house_core:items_view' %}" method="get">
+        <select name="apartment" onchange="this.form.submit()">
+          {% for apartment_id, apartment_name in form.fields.apartment.choices %}
+            <option value="{{ apartment_id }}"
+                    {% if request.GET.apartment == apartment_id|stringformat:"s" %}selected{% endif %}>
+              {{ apartment_name }}
+            </option>
+          {% endfor %}
+        </select>
+        <select name="room" onchange="this.form.submit()">
+          {% for room_id, room_name in form.fields.room.choices %}
+            <option value="{{ room_id }}"
+                    {% if request.GET.room == room_id|stringformat:"s" %}selected{% endif %}>
+              {{ room_name }}
+            </option>
+          {% endfor %}
+        </select>
+      </form>
+      <form method="get">
+        {{ form.query }}
+        <button class="btn-small">Filter</button>
+      </form>
+
     </div>
     {% block table %}
       {% include "includes/table_of_items.html" %}
