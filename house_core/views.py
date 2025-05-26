@@ -10,7 +10,12 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from house_core.forms import UserRegistrationForm, CreateRoomForm, CreateItemForm, ItemFilterForm
+from house_core.forms import (
+    UserRegistrationForm,
+    CreateUpdateRoomForm,
+    CreateItemForm,
+    ItemFilterForm
+)
 from house_core.models import Item, Apartment, Room, User
 
 
@@ -257,17 +262,18 @@ def room_page_view(request: HttpRequest, pk: id) -> HttpResponse:
 class RoomUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Room
     template_name = "rooms/update_room_form.html"
-    fields = [
-        "room_name",
-        "room_description",
-        "area_m2",
-    ]
+    form_class = CreateUpdateRoomForm
 
     def get_success_url(self):
         return reverse_lazy(
             "house_core:pk_room_view",
             kwargs={"pk": self.object.pk}
         )
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
 
 
 class RoomDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -278,7 +284,7 @@ class RoomDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class RoomCreateView(LoginRequiredMixin, generic.CreateView):
     model = Room
-    form_class = CreateRoomForm
+    form_class = CreateUpdateRoomForm
     template_name = "rooms/create_room_form.html"
 
     def get_success_url(self):

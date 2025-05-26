@@ -10,7 +10,7 @@ class UserRegistrationForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
 
 
-class CreateRoomForm(forms.ModelForm):
+class CreateUpdateRoomForm(forms.ModelForm):
     apartment = forms.ModelChoiceField(queryset=Apartment.objects.all())
 
     class Meta:
@@ -69,12 +69,3 @@ class ItemFilterForm(forms.Form):
                 for room in Room.objects.filter(apartment__user=self.user)
             ]
 
-
-# class ItemSearchForm(forms.Form):
-#     query = forms.CharField(
-#         required=False,
-#         label="Пошук",
-#         widget=forms.TextInput(
-#             attrs={"placeholder": "Пошук за назвою або брендом"}
-#         )
-#     )
