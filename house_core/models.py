@@ -28,7 +28,7 @@ class Apartment(models.Model):
         on_delete=models.CASCADE,
         related_name="apartments"
     )
-    address = models.CharField(max_length=100, verbose_name="Address",)
+    address = models.CharField(max_length=100, verbose_name="Address", )
     apartment_description = models.TextField(
         blank=True,
         null=True,
@@ -80,6 +80,11 @@ class Room(models.Model):
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="categories"
+    )
 
     class Meta:
         ordering = ["category_name"]
@@ -148,6 +153,11 @@ class Item(models.Model):
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=100, unique=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="tags"
+    )
 
     class Meta:
         ordering = ["tag_name"]
