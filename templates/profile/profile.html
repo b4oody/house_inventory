@@ -8,11 +8,23 @@
 {% block content %}
   <main>
     <h1>Profile</h1>
-    <form action="{% url 'house_core:logout' %}" method="post">
-      {% csrf_token %}
-      <button class="btn" type="submit">Log Out</button>
-    </form>
-    <p>Email: user@example.com</p>
-    <a class="btn" href="#">Change Password</a>
+    <p>Username: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
+    <br>
+
+    <div>
+      <h3>Change Password</h3>
+      <a class="btn" href="{% url 'house_core:change_password' %}">Change Password</a>
+    </div>
+    <br>
+    <br>
+    <div>
+      <h3>Logout</h3>
+      <form action="{% url 'house_core:logout' %}" method="post">
+        {% csrf_token %}
+        <button class="btn" type="submit">Log Out</button>
+      </form>
+    </div>
   </main>
+
 {% endblock %}

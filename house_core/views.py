@@ -2,7 +2,9 @@ from decimal import Decimal
 
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView
 from django.core.paginator import Paginator
 from django.db.models import Sum, Count, Q
 from django.http import HttpResponse, HttpRequest
@@ -351,3 +353,9 @@ def all_rooms_page_view(request: HttpRequest) -> HttpResponse:
         "rooms/rooms.html",
         context=context
     )
+
+
+class ChangePasswordView(PasswordChangeView):
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy("house_core:apartments_view")
+    template_name = "profile/change_password.html"

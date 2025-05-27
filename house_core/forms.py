@@ -53,6 +53,7 @@ class ItemFilterForm(forms.Form):
             attrs={"placeholder": "Search"}
         )
     )
+
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
@@ -67,3 +68,9 @@ class ItemFilterForm(forms.Form):
                 (room.id, room.room_name)
                 for room in Room.objects.filter(apartment__user=self.user)
             ]
+
+
+class ChangePasswordForm(forms.Form):
+    old_password = forms.CharField(widget=forms.PasswordInput())
+    new_password = forms.CharField(widget=forms.PasswordInput())
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
