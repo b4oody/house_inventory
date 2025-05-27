@@ -1,0 +1,24 @@
+{% block pagination %}
+  <div class="pagination">
+    <ul class="pagination-list">
+      {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link" title="Попередня сторінка">&lt;</a>
+        </li>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if num >= page_obj.number|add:"-2" and num <= page_obj.number|add:"2" %}
+          {% if num == page_obj.number %}
+            <li><span class="page-link active">{{ num }}</span></li>
+          {% else %}
+            <li><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}" class="page-link" title="Наступна сторінка">&gt;</a></li>
+      {% endif %}
+    </ul>
+  </div>
+{% endblock %}

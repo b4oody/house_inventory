@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+{% load extra_tags %}
+
+{% block title %}
+  <title>Room - HomeStock</title>
+{% endblock %}
+
+
+{% block content %}
+  <main>
+    <h1>Room: {{ room.room_name }}</h1>
+    <p>Apartment: {{ room.apartment.apartment_name }}</p>
+    <a class="btn" href="{% url 'house_core:pk_item_create_view' %}">➕ Add Item</a>
+    {% block table %}
+      {% include "includes/table_of_items.html" %}
+    {% endblock %}
+    {% block pagination %}
+      {% include 'includes/pagination/pagination.html' %}
+    {% endblock %}
+  </main>
+{% endblock %}

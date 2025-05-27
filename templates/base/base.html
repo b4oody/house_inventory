@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+
+  {% block title %}
+    <title></title>
+  {% endblock %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<header>
+  <div class="logo">🏠 HomeStock</div>
+</header>
+<div class="container">
+
+  {% block header %}
+    {% include 'includes/header/header-main.html' %}
+  {% endblock %}
+
+  {% block content %}
+  {% endblock %}
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    © Made by Vladyslav Rymarchuk
+  </div>
+</footer>
+
+</body>
+</html>

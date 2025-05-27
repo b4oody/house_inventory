@@ -1,0 +1,20 @@
+{% block header %}
+  <aside class="sidebar">
+    <nav>
+      <ul>
+        <li>
+          {% if user.is_authenticated %}
+            <a href="{% url 'house_core:profile_view' user.pk %}">Profile {{ user.username }}</a>
+          {% else %}
+            <a>Profile</a>
+          {% endif %}
+        </li>
+        <br>
+        <li><a href="{% url 'house_core:apartments_view' %}">Apartments</a></li>
+        <li><a href="{% url 'house_core:rooms_view' %}">Rooms</a></li>
+        <li><a href="{% url 'house_core:items_view' %}">Items</a></li>
+        <li><a href="{% url 'house_core:reports_view' %}">Reports</a></li>
+      </ul>
+    </nav>
+  </aside>
+{% endblock %}

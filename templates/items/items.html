@@ -1,0 +1,46 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+  <title>Items - HomeStock</title>
+{% endblock %}
+
+{% block content %}
+  <main>
+    <h1>All Items</h1>
+    <a class="btn" href="{% url 'house_core:pk_item_create_view' %}">➕ Add Item</a>
+    <a class="btn" href="{% url 'house_core:create_tag_view' %}">➕ Add Tag</a>
+    <a class="btn" href="{% url 'house_core:create_category_view' %}">➕ Add Categories</a>
+    <div class="filter">
+      <form action="{% url 'house_core:items_view' %}" method="get">
+        <select name="apartment" onchange="this.form.submit()">
+          {% for apartment_id, apartment_name in form.fields.apartment.choices %}
+            <option value="{{ apartment_id }}"
+                    {% if request.GET.apartment == apartment_id|stringformat:"s" %}selected{% endif %}>
+              {{ apartment_name }}
+            </option>
+          {% endfor %}
+        </select>
+        <select name="room" onchange="this.form.submit()">
+          {% for room_id, room_name in form.fields.room.choices %}
+            <option value="{{ room_id }}"
+                    {% if request.GET.room == room_id|stringformat:"s" %}selected{% endif %}>
+              {{ room_name }}
+            </option>
+          {% endfor %}
+        </select>
+      </form>
+      <form method="get">
+        {{ form.query }}
+        <button class="btn-small">Filter</button>
+      </form>
+
+    </div>
+    {% block table %}
+      {% include "includes/table_of_items.html" %}
+    {% endblock %}
+
+    {% block pagination %}
+      {% include 'includes/pagination/pagination.html' %}
+    {% endblock %}
+  </main>
+{% endblock %}

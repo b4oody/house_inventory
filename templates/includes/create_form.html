@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+  <main>
+    {% block h1 %}
+    {% endblock %}
+    <form id="form" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn">Save</button>
+      <button type="button" onclick="window.history.back();" class="btn">Cancel</button>
+    </form>
+  </main>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+  <title>Reports - HomeStock</title>
+{% endblock %}
+
+
+{% block content %}
+  <main>
+    <div><h2>Backup</h2>
+      <a class="btn" href="{% url 'house_core:export' %}?{{ request.GET.urlencode }}">Export to Exel</a>
+    </div>
+    <br>
+    <h1>Reports</h1>
+    <div class="cards">
+      <div class="card"><h2>Total Items</h2>
+        <p>{% if total_items %}{{ total_items }}{% else %}0{% endif %}</p>
+      </div>
+      <div class="card"><h2>Total Purchase Value</h2>
+        <p>₴{% if total_purchase_price %}{{ total_purchase_price }}{% else %}0{% endif %}</p>
+      </div>
+      <div class="card"><h2>Total Current Value</h2>
+        <p>₴{% if total_current_price %}{{ total_current_price }}{% else %}0{% endif %}</p>
+      </div>
+    </div>
+    <h2>By Apartment</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Apartment</th>
+        <th>Purchase Value</th>
+        <th>Current Value</th>
+        <th>Total Item</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for apartment in apartments_sums %}
+        <tr>
+          <td>{{ apartment.apartment_name }}</td>
+          <td>₴{% if apartment.total_purchase_price %}{{ apartment.total_purchase_price }}{% else %}0{% endif %}</td>
+          <td>₴{% if apartment.total_current_price %}{{ apartment.total_current_price }}{% else %}0{% endif %}</td>
+          <td>₴{% if apartment.total_items %}{{ apartment.total_items }}{% else %}0{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </main>
+{% endblock %}
