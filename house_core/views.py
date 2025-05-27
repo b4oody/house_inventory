@@ -191,7 +191,7 @@ def apartment_page_view(request: HttpRequest, pk: id) -> HttpResponse:
 
 class ApartmentUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Apartment
-    template_name = "apartments/update_apartment_form.html"
+    template_name = "apartments/create_update_apartment_form.html"
     fields = [
         "apartment_name",
         "address",
@@ -220,7 +220,7 @@ class UserRegistrationView(generic.CreateView):
 
 class ApartmentCreateView(LoginRequiredMixin, generic.CreateView):
     model = Apartment
-    template_name = "apartments/create_apartment_form.html"
+    template_name = "apartments/create_update_apartment_form.html"
     fields = [
         "apartment_name",
         "address",
@@ -262,7 +262,7 @@ def room_page_view(request: HttpRequest, pk: id) -> HttpResponse:
 
 class RoomUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Room
-    template_name = "rooms/update_room_form.html"
+    template_name = "rooms/create_update_room_form.html"
     form_class = CreateUpdateRoomForm
     success_url = reverse_lazy("house_core:rooms_view")
 
@@ -281,7 +281,7 @@ class RoomDeleteView(LoginRequiredMixin, generic.DeleteView):
 class RoomCreateView(LoginRequiredMixin, generic.CreateView):
     model = Room
     form_class = CreateUpdateRoomForm
-    template_name = "rooms/create_room_form.html"
+    template_name = "rooms/create_update_room_form.html"
     success_url = reverse_lazy("house_core:rooms_view")
 
     def get_form_kwargs(self):
@@ -292,7 +292,7 @@ class RoomCreateView(LoginRequiredMixin, generic.CreateView):
 
 class ItemUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Item
-    template_name = "items/update_item_form.html"
+    template_name = "items/create_update_item_form.html"
     fields = "__all__"
 
     success_url = reverse_lazy("house_core:items_view")
@@ -307,7 +307,7 @@ class ItemDeleteView(LoginRequiredMixin, generic.DeleteView):
 class ItemCreateView(LoginRequiredMixin, generic.CreateView):
     model = Item
     form_class = CreateItemForm
-    template_name = "items/create_item_form.html"
+    template_name = "items/create_update_item_form.html"
     success_url = reverse_lazy("house_core:items_view")
 
     def get_form_kwargs(self):

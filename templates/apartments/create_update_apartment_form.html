@@ -1,0 +1,9 @@
+{% extends 'includes/create_form.html' %}
+
+{% block title %}
+  <title>{{ object|yesno:"Update, Create" }} Apartment - HomeStock</title>
+{% endblock %}
+
+{% block h1 %}
+  <h1>{{ object|yesno:"Update, Create" }} Apartment</h1>
+{% endblock %}

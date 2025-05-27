@@ -1,0 +1,9 @@
+{% extends 'includes/create_form.html' %}
+
+{% block title %}
+  <title>{{ object|yesno:"Update, Create" }} Item - HomeStock</title>
+{% endblock %}
+
+{% block h1 %}
+  <h1>{{ object|yesno:"Update, Create" }} Item</h1>
+{% endblock %}
