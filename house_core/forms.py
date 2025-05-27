@@ -31,8 +31,8 @@ class CreateUpdateRoomForm(forms.ModelForm):
 
 class CreateItemForm(forms.ModelForm):
     room = forms.ModelChoiceField(queryset=Room.objects.all())
-    tags = forms.ModelChoiceField(queryset=Tag.objects.all())
-    categories = forms.ModelChoiceField(queryset=Category.objects.all())
+    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.none(), required=False)
+    categories = forms.ModelMultipleChoiceField(queryset=Category.objects.none(), required=False)
 
     class Meta:
         model = Item
