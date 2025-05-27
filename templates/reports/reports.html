@@ -7,9 +7,10 @@
 
 {% block content %}
   <main>
-    <div>
-      <a class="btn" href="{% url 'house_core:export' %}?{{ request.GET.urlencode }}">Експортувати в Excel</a>
+    <div><h2>Backup</h2>
+      <a class="btn" href="{% url 'house_core:export' %}?{{ request.GET.urlencode }}">Export to Exel</a>
     </div>
+    <br>
     <h1>Reports</h1>
     <div class="cards">
       <div class="card"><h2>Total Items</h2>

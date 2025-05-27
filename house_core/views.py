@@ -3,7 +3,9 @@ from decimal import Decimal
 import openpyxl
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView
 from django.core.paginator import Paginator
 from django.db.models import Sum, Count, Q
 from django.http import HttpResponse, HttpRequest
@@ -14,8 +16,6 @@ from openpyxl.styles import Alignment
 from openpyxl.styles.borders import Side, Border
 from openpyxl.utils import get_column_letter
 
-from house_core.forms import UserRegistrationForm, CreateRoomForm, CreateItemForm, ItemFilterForm
-from house_core.models import Item, Apartment, Room, User, Category, Tag
 from house_core.forms import (
     UserRegistrationForm,
     CreateUpdateRoomForm,
