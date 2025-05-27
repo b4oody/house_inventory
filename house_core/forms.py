@@ -29,7 +29,7 @@ class CreateUpdateRoomForm(forms.ModelForm):
         self.fields["apartment"].queryset = user_apartments
 
 
-class CreateItemForm(forms.ModelForm):
+class CreateUpdateItemForm(forms.ModelForm):
     room = forms.ModelChoiceField(queryset=Room.objects.all())
     tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.none(), required=False)
     categories = forms.ModelMultipleChoiceField(queryset=Category.objects.none(), required=False)

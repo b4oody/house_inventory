@@ -19,8 +19,8 @@ from openpyxl.utils import get_column_letter
 from house_core.forms import (
     UserRegistrationForm,
     CreateUpdateRoomForm,
-    CreateItemForm,
-    ItemFilterForm
+    CreateUpdateItemForm,
+    ItemFilterForm,
 )
 from house_core.models import (
     Item,
@@ -304,9 +304,14 @@ class RoomCreateView(LoginRequiredMixin, generic.CreateView):
 
 class ItemUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Item
+    form_class = CreateUpdateItemForm
     template_name = "items/create_update_item_form.html"
-    fields = "__all__"
     success_url = reverse_lazy("house_core:items_view")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
 
 
 class ItemDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -317,7 +322,7 @@ class ItemDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class ItemCreateView(LoginRequiredMixin, generic.CreateView):
     model = Item
-    form_class = CreateItemForm
+    form_class = CreateUpdateItemForm
     template_name = "items/create_update_item_form.html"
     success_url = reverse_lazy("house_core:items_view")
 
