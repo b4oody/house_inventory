@@ -118,7 +118,11 @@ def items_page_view(request: HttpRequest) -> HttpResponse:
 
         if query:
             items = items.filter(
-                Q(item_name__icontains=query) | Q(brand__icontains=query)
+                Q(item_name__icontains=query) |
+                Q(item_description__icontains=query) |
+                Q(categories__icontains=query) |
+                Q(tags__icontains=query)
+
             )
 
     page_obj = pagination(request, items)

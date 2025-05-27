@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from house_core.models import User, Room, Apartment, Item
+from house_core.models import User, Room, Apartment, Item, Category
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -48,12 +48,11 @@ class ItemFilterForm(forms.Form):
     room = forms.ChoiceField(choices=[], required=False)
     query = forms.CharField(
         required=False,
-        label="Пошук",
+        label="Search",
         widget=forms.TextInput(
-            attrs={"placeholder": "Пошук за назвою або брендом"}
+            attrs={"placeholder": "Search"}
         )
     )
-
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
@@ -68,4 +67,3 @@ class ItemFilterForm(forms.Form):
                 (room.id, room.room_name)
                 for room in Room.objects.filter(apartment__user=self.user)
             ]
-
