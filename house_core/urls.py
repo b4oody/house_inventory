@@ -23,12 +23,13 @@ from house_core.views import (
     CreateCategoryView,
     ChangePasswordView
 )
+from house_core.export_backup import export_to_excel
 
 urlpatterns = [
 
     path("", include("django.contrib.auth.urls")),
     path("registration/", UserRegistrationView.as_view(), name="registration"),
-    path("profile/change-password/", ChangePasswordView.as_view(), name="change_password"),
+
     path("home/profile/<int:pk>/", ProfilePageView.as_view(), name="profile_view"),
     path("home/reports/", report_page_view, name="reports_view"),
 
@@ -75,6 +76,8 @@ urlpatterns = [
         RoomDeleteView.as_view(),
         name="pk_room_delete_view"
     ),
+
+    path("home/reports/export/", export_to_excel, name="export"),
 ]
 
 app_name = "house_core"
