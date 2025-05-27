@@ -98,7 +98,10 @@ def report_page_view(request: HttpRequest) -> HttpResponse:
 
 @login_required
 def items_page_view(request: HttpRequest) -> HttpResponse:
-    items = Item.objects.filter(room__apartment__user=request.user)
+    items = (Item.objects.filter(room__apartment__user=request.user)
+             .select_related("room__apartment")
+             .prefetch_related("categories", "tags")
+             )
     exclude = {"id", "photo_url", "created_at"}
 
     fields = [
@@ -241,7 +244,10 @@ def room_page_view(request: HttpRequest, pk: id) -> HttpResponse:
     room = Room.objects.get(pk=pk)
 
     exclude = {"id", "photo_url", "room", "created_at"}
-    items = Item.objects.filter(room=room)
+    items = (Item.objects.filter(room=room)
+             .select_related("room__apartment")
+             .prefetch_related("categories", "tags")
+             )
     page_obj = pagination(request, items)
 
     fields = [
@@ -335,7 +341,7 @@ class CreateCategoryView(LoginRequiredMixin, generic.CreateView):
 @login_required
 def all_rooms_page_view(request: HttpRequest) -> HttpResponse:
     exclude = {"id", "created_at"}
-    rooms = Room.objects.filter(apartment__user=request.user)
+    rooms = Room.objects.filter(apartment__user=request.user).select_related("apartment")
     page_obj = pagination(request, rooms)
 
     fields = [
