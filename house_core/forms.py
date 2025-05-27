@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from house_core.models import User, Room, Apartment, Item, Category
+from house_core.models import User, Room, Apartment, Item, Category, Tag
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -31,6 +31,8 @@ class CreateUpdateRoomForm(forms.ModelForm):
 
 class CreateItemForm(forms.ModelForm):
     room = forms.ModelChoiceField(queryset=Room.objects.all())
+    tags = forms.ModelChoiceField(queryset=Tag.objects.all())
+    categories = forms.ModelChoiceField(queryset=Category.objects.all())
 
     class Meta:
         model = Item
@@ -39,8 +41,15 @@ class CreateItemForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
+
         user_rooms = Room.objects.filter(apartment__user=self.user)
         self.fields["room"].queryset = user_rooms
+
+        tags_item = Tag.objects.filter(user=self.user)
+        self.fields["tags"].queryset = tags_item
+
+        categories_item = Category.objects.filter(user=self.user)
+        self.fields["categories"].queryset = categories_item
 
 
 class ItemFilterForm(forms.Form):

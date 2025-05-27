@@ -306,7 +306,6 @@ class ItemUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Item
     template_name = "items/create_update_item_form.html"
     fields = "__all__"
-
     success_url = reverse_lazy("house_core:items_view")
 
 
@@ -330,16 +329,24 @@ class ItemCreateView(LoginRequiredMixin, generic.CreateView):
 
 class CreateTagView(LoginRequiredMixin, generic.CreateView):
     model = Tag
-    fields = "__all__"
+    fields = ["tag_name", ]
     template_name = "items/create_tag_form.html"
     success_url = reverse_lazy("house_core:items_view")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class CreateCategoryView(LoginRequiredMixin, generic.CreateView):
     model = Category
-    fields = "__all__"
+    fields = ["category_name", ]
     template_name = "items/create_category_form.html"
     success_url = reverse_lazy("house_core:items_view")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 @login_required
