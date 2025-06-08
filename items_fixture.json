@@ -1,0 +1,722 @@
+[
+  {
+    "model": "house_core.user",
+    "pk": 1,
+    "fields": {
+      "password": "",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "demo",
+      "first_name": "",
+      "last_name": "",
+      "email": "demo@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.apartment",
+    "pk": 1,
+    "fields": {
+      "apartment_name": "Sunny Apartment",
+      "user": 1,
+      "address": "Kyiv, Main St. 1",
+      "apartment_description": "Sample apartment for demo data.",
+      "purchase_price": "250000.00",
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.room",
+    "pk": 1,
+    "fields": {
+      "room_name": "Living Room",
+      "room_description": "Living Room description",
+      "apartment": 1,
+      "area_m2": 17,
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.room",
+    "pk": 2,
+    "fields": {
+      "room_name": "Bedroom",
+      "room_description": "Bedroom description",
+      "apartment": 1,
+      "area_m2": 19,
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.room",
+    "pk": 3,
+    "fields": {
+      "room_name": "Kitchen",
+      "room_description": "Kitchen description",
+      "apartment": 1,
+      "area_m2": 21,
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.room",
+    "pk": 4,
+    "fields": {
+      "room_name": "Bathroom",
+      "room_description": "Bathroom description",
+      "apartment": 1,
+      "area_m2": 23,
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.category",
+    "pk": 1,
+    "fields": {
+      "category_name": "Electronics",
+      "user": 1
+    }
+  },
+  {
+    "model": "house_core.category",
+    "pk": 2,
+    "fields": {
+      "category_name": "Furniture",
+      "user": 1
+    }
+  },
+  {
+    "model": "house_core.category",
+    "pk": 3,
+    "fields": {
+      "category_name": "Appliances",
+      "user": 1
+    }
+  },
+  {
+    "model": "house_core.tag",
+    "pk": 1,
+    "fields": {
+      "tag_name": "Urgent",
+      "user": 1
+    }
+  },
+  {
+    "model": "house_core.tag",
+    "pk": 2,
+    "fields": {
+      "tag_name": "Sale",
+      "user": 1
+    }
+  },
+  {
+    "model": "house_core.tag",
+    "pk": 3,
+    "fields": {
+      "tag_name": "Gift",
+      "user": 1
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 1,
+    "fields": {
+      "item_name": "Item 1",
+      "item_description": "Demo description for item 1.",
+      "photo_url": "",
+      "quantity": 4,
+      "purchase_price": "309.75",
+      "current_price": "454.42",
+      "purchase_date": "2024-10-20",
+      "warranty_until": "2025-10-20",
+      "room": 3,
+      "model": "Model-1",
+      "brand": "Brand-1",
+      "condition": "unknown",
+      "categories": [
+        3
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 1,
+    "fields": {
+      "item": 1,
+      "tag": 1
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 2,
+    "fields": {
+      "item_name": "Item 2",
+      "item_description": "Demo description for item 2.",
+      "photo_url": "",
+      "quantity": 1,
+      "purchase_price": "1680.65",
+      "current_price": "854.51",
+      "purchase_date": "2024-07-29",
+      "warranty_until": "2025-07-29",
+      "room": 3,
+      "model": "Model-2",
+      "brand": "Brand-2",
+      "condition": "new",
+      "categories": [
+        2
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 2,
+    "fields": {
+      "item": 2,
+      "tag": 3
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 3,
+    "fields": {
+      "item_name": "Item 3",
+      "item_description": "Demo description for item 3.",
+      "photo_url": "",
+      "quantity": 4,
+      "purchase_price": "161.64",
+      "current_price": "26.06",
+      "purchase_date": "2024-09-03",
+      "warranty_until": "2025-09-03",
+      "room": 1,
+      "model": "Model-3",
+      "brand": "Brand-3",
+      "condition": "used",
+      "categories": [
+        2
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 3,
+    "fields": {
+      "item": 3,
+      "tag": 2
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 4,
+    "fields": {
+      "item_name": "Item 4",
+      "item_description": "Demo description for item 4.",
+      "photo_url": "",
+      "quantity": 3,
+      "purchase_price": "1201.97",
+      "current_price": "870.15",
+      "purchase_date": "2024-10-05",
+      "warranty_until": "2025-10-05",
+      "room": 1,
+      "model": "Model-4",
+      "brand": "Brand-4",
+      "condition": "used",
+      "categories": [
+        3
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 4,
+    "fields": {
+      "item": 4,
+      "tag": 2
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 5,
+    "fields": {
+      "item_name": "Item 5",
+      "item_description": "Demo description for item 5.",
+      "photo_url": "",
+      "quantity": 3,
+      "purchase_price": "781.97",
+      "current_price": "1038.50",
+      "purchase_date": "2024-10-26",
+      "warranty_until": "2025-10-26",
+      "room": 1,
+      "model": "Model-5",
+      "brand": "Brand-5",
+      "condition": "unknown",
+      "categories": [
+        3
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 5,
+    "fields": {
+      "item": 5,
+      "tag": 2
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 6,
+    "fields": {
+      "item_name": "Item 6",
+      "item_description": "Demo description for item 6.",
+      "photo_url": "",
+      "quantity": 3,
+      "purchase_price": "1762.43",
+      "current_price": "952.42",
+      "purchase_date": "2024-06-29",
+      "warranty_until": "2025-06-29",
+      "room": 1,
+      "model": "Model-6",
+      "brand": "Brand-6",
+      "condition": "new",
+      "categories": [
+        1
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 6,
+    "fields": {
+      "item": 6,
+      "tag": 3
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 7,
+    "fields": {
+      "item_name": "Item 7",
+      "item_description": "Demo description for item 7.",
+      "photo_url": "",
+      "quantity": 5,
+      "purchase_price": "409.88",
+      "current_price": "1186.16",
+      "purchase_date": "2024-12-11",
+      "warranty_until": "2025-12-11",
+      "room": 4,
+      "model": "Model-7",
+      "brand": "Brand-7",
+      "condition": "unknown",
+      "categories": [
+        3
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 7,
+    "fields": {
+      "item": 7,
+      "tag": 1
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 8,
+    "fields": {
+      "item_name": "Item 8",
+      "item_description": "Demo description for item 8.",
+      "photo_url": "",
+      "quantity": 4,
+      "purchase_price": "702.71",
+      "current_price": "712.86",
+      "purchase_date": "2025-05-19",
+      "warranty_until": "2026-05-19",
+      "room": 3,
+      "model": "Model-8",
+      "brand": "Brand-8",
+      "condition": "new",
+      "categories": [
+        3
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 8,
+    "fields": {
+      "item": 8,
+      "tag": 1
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 9,
+    "fields": {
+      "item_name": "Item 9",
+      "item_description": "Demo description for item 9.",
+      "photo_url": "",
+      "quantity": 5,
+      "purchase_price": "720.78",
+      "current_price": "119.87",
+      "purchase_date": "2024-11-01",
+      "warranty_until": "2025-11-01",
+      "room": 1,
+      "model": "Model-9",
+      "brand": "Brand-9",
+      "condition": "unknown",
+      "categories": [
+        3
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 9,
+    "fields": {
+      "item": 9,
+      "tag": 1
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 10,
+    "fields": {
+      "item_name": "Item 10",
+      "item_description": "Demo description for item 10.",
+      "photo_url": "",
+      "quantity": 5,
+      "purchase_price": "353.39",
+      "current_price": "189.74",
+      "purchase_date": "2025-01-31",
+      "warranty_until": "2026-01-31",
+      "room": 2,
+      "model": "Model-10",
+      "brand": "Brand-10",
+      "condition": "new",
+      "categories": [
+        1
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 10,
+    "fields": {
+      "item": 10,
+      "tag": 3
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 11,
+    "fields": {
+      "item_name": "Item 11",
+      "item_description": "Demo description for item 11.",
+      "photo_url": "",
+      "quantity": 2,
+      "purchase_price": "1016.18",
+      "current_price": "1011.22",
+      "purchase_date": "2025-05-02",
+      "warranty_until": "2026-05-02",
+      "room": 3,
+      "model": "Model-11",
+      "brand": "Brand-11",
+      "condition": "used",
+      "categories": [
+        1
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 11,
+    "fields": {
+      "item": 11,
+      "tag": 2
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 12,
+    "fields": {
+      "item_name": "Item 12",
+      "item_description": "Demo description for item 12.",
+      "photo_url": "",
+      "quantity": 4,
+      "purchase_price": "832.45",
+      "current_price": "1314.99",
+      "purchase_date": "2024-07-27",
+      "warranty_until": "2025-07-27",
+      "room": 1,
+      "model": "Model-12",
+      "brand": "Brand-12",
+      "condition": "unknown",
+      "categories": [
+        3
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 12,
+    "fields": {
+      "item": 12,
+      "tag": 1
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 13,
+    "fields": {
+      "item_name": "Item 13",
+      "item_description": "Demo description for item 13.",
+      "photo_url": "",
+      "quantity": 2,
+      "purchase_price": "1427.91",
+      "current_price": "1404.08",
+      "purchase_date": "2025-05-02",
+      "warranty_until": "2026-05-02",
+      "room": 4,
+      "model": "Model-13",
+      "brand": "Brand-13",
+      "condition": "unknown",
+      "categories": [
+        3
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 13,
+    "fields": {
+      "item": 13,
+      "tag": 1
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 14,
+    "fields": {
+      "item_name": "Item 14",
+      "item_description": "Demo description for item 14.",
+      "photo_url": "",
+      "quantity": 1,
+      "purchase_price": "1085.32",
+      "current_price": "315.37",
+      "purchase_date": "2024-09-08",
+      "warranty_until": "2025-09-08",
+      "room": 3,
+      "model": "Model-14",
+      "brand": "Brand-14",
+      "condition": "unknown",
+      "categories": [
+        3
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 14,
+    "fields": {
+      "item": 14,
+      "tag": 1
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 15,
+    "fields": {
+      "item_name": "Item 15",
+      "item_description": "Demo description for item 15.",
+      "photo_url": "",
+      "quantity": 4,
+      "purchase_price": "1155.67",
+      "current_price": "136.55",
+      "purchase_date": "2024-06-01",
+      "warranty_until": "2025-06-01",
+      "room": 2,
+      "model": "Model-15",
+      "brand": "Brand-15",
+      "condition": "new",
+      "categories": [
+        1
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 15,
+    "fields": {
+      "item": 15,
+      "tag": 2
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 16,
+    "fields": {
+      "item_name": "Item 16",
+      "item_description": "Demo description for item 16.",
+      "photo_url": "",
+      "quantity": 2,
+      "purchase_price": "836.84",
+      "current_price": "1206.43",
+      "purchase_date": "2024-11-19",
+      "warranty_until": "2025-11-19",
+      "room": 2,
+      "model": "Model-16",
+      "brand": "Brand-16",
+      "condition": "new",
+      "categories": [
+        3
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 16,
+    "fields": {
+      "item": 16,
+      "tag": 1
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 17,
+    "fields": {
+      "item_name": "Item 17",
+      "item_description": "Demo description for item 17.",
+      "photo_url": "",
+      "quantity": 1,
+      "purchase_price": "1808.42",
+      "current_price": "582.49",
+      "purchase_date": "2024-08-30",
+      "warranty_until": "2025-08-30",
+      "room": 4,
+      "model": "Model-17",
+      "brand": "Brand-17",
+      "condition": "new",
+      "categories": [
+        3
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 17,
+    "fields": {
+      "item": 17,
+      "tag": 2
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 18,
+    "fields": {
+      "item_name": "Item 18",
+      "item_description": "Demo description for item 18.",
+      "photo_url": "",
+      "quantity": 1,
+      "purchase_price": "197.32",
+      "current_price": "768.98",
+      "purchase_date": "2025-02-24",
+      "warranty_until": "2026-02-24",
+      "room": 2,
+      "model": "Model-18",
+      "brand": "Brand-18",
+      "condition": "new",
+      "categories": [
+        3
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 18,
+    "fields": {
+      "item": 18,
+      "tag": 1
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 19,
+    "fields": {
+      "item_name": "Item 19",
+      "item_description": "Demo description for item 19.",
+      "photo_url": "",
+      "quantity": 2,
+      "purchase_price": "581.43",
+      "current_price": "68.33",
+      "purchase_date": "2024-06-26",
+      "warranty_until": "2025-06-26",
+      "room": 1,
+      "model": "Model-19",
+      "brand": "Brand-19",
+      "condition": "used",
+      "categories": [
+        1
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 19,
+    "fields": {
+      "item": 19,
+      "tag": 3
+    }
+  },
+  {
+    "model": "house_core.item",
+    "pk": 20,
+    "fields": {
+      "item_name": "Item 20",
+      "item_description": "Demo description for item 20.",
+      "photo_url": "",
+      "quantity": 4,
+      "purchase_price": "1238.45",
+      "current_price": "1374.63",
+      "purchase_date": "2025-03-14",
+      "warranty_until": "2026-03-14",
+      "room": 2,
+      "model": "Model-20",
+      "brand": "Brand-20",
+      "condition": "unknown",
+      "categories": [
+        1
+      ],
+      "created_at": "2025-06-02T00:00:00Z"
+    }
+  },
+  {
+    "model": "house_core.itemtag",
+    "pk": 20,
+    "fields": {
+      "item": 20,
+      "tag": 1
+    }
+  }
+]
