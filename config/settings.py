@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "debug_toolbar",
     "house_core",
+    "rest_framework",
+    "api",
 ]
 
 MIDDLEWARE = [
@@ -81,8 +83,8 @@ WSGI_APPLICATION = "config.wsgi.application"
 # }
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+# # Database
+# # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
