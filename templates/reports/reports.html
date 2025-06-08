@@ -39,7 +39,7 @@
           <td>{{ apartment.apartment_name }}</td>
           <td>₴{% if apartment.total_purchase_price %}{{ apartment.total_purchase_price }}{% else %}0{% endif %}</td>
           <td>₴{% if apartment.total_current_price %}{{ apartment.total_current_price }}{% else %}0{% endif %}</td>
-          <td>₴{% if apartment.total_items %}{{ apartment.total_items }}{% else %}0{% endif %}</td>
+          <td>{% if apartment.total_items %}{{ apartment.total_items }}{% else %}0{% endif %}</td>
         </tr>
       {% endfor %}
       </tbody>
