@@ -24,5 +24,7 @@ from config import settings
 urlpatterns = ([
     path("admin/", admin.site.urls),
     path("", include("house_core.urls", namespace="house_core")),
+    path("api/v1/", include("api.urls", namespace="api")),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
                + debug_toolbar_urls())
