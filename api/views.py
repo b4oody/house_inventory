@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
-from api.serializers import ApartmentSerializer, RoomSerializer
-from house_core.models import Apartment, Room
+from api.serializers import ApartmentSerializer, RoomSerializer, CategorySerializer
+from house_core.models import Apartment, Room, Category
 
 
 class ApartmentViewSet(viewsets.ModelViewSet):
@@ -21,3 +21,14 @@ class RoomViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Room.objects.filter(apartment__user=self.request.user)
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        return Category.objects.filter(user=self.request.user)

@@ -2,7 +2,7 @@ from django.db import transaction
 from rest_framework import serializers
 from rest_framework.generics import get_object_or_404
 
-from house_core.models import Apartment, Room
+from house_core.models import Apartment, Room, Category
 
 
 class ApartmentSerializer(serializers.ModelSerializer):
@@ -58,3 +58,9 @@ class RoomSerializer(serializers.ModelSerializer):
             setattr(instance, attr, value)
         instance.save()
         return instance
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["id", "category_name"]
