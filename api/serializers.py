@@ -2,7 +2,7 @@ from django.db import transaction
 from rest_framework import serializers
 from rest_framework.generics import get_object_or_404
 
-from house_core.models import Apartment, Room, Category
+from house_core.models import Apartment, Room, Category, Item
 
 
 class ApartmentSerializer(serializers.ModelSerializer):
@@ -64,3 +64,36 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ["id", "category_name"]
+
+
+class CategoryItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["id", "category_name"]
+
+
+class ItemSerializer(serializers.ModelSerializer):
+    room = serializers.CharField()
+    categories = serializers.StringRelatedField(many=True)
+    tags = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = Item
+        fields = [
+            "id",
+            "item_name",
+            "item_description",
+            "photo_url",
+            "quantity",
+            "purchase_price",
+            "current_price",
+            "purchase_date",
+            "warranty_until",
+            "room",
+            "categories",
+            "model",
+            "brand",
+            "condition",
+            "tags",
+            "created_at",
+        ]
