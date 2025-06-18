@@ -8,6 +8,7 @@ router.register(r"apartments", views.ApartmentViewSet)
 router.register(r"rooms", views.RoomViewSet)
 router.register(r"categories", views.CategoryViewSet)
 router.register(r"items", views.ItemViewSet)
+router.register(r"tags", views.TagViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),

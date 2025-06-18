@@ -4,9 +4,9 @@ from api.serializers import (
     ApartmentSerializer,
     RoomSerializer,
     CategorySerializer,
-    ItemSerializer
+    ItemSerializer, TagSerializer
 )
-from house_core.models import Apartment, Room, Category, Item
+from house_core.models import Apartment, Room, Category, Item, Tag
 
 
 class ApartmentViewSet(viewsets.ModelViewSet):
@@ -37,6 +37,17 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Category.objects.filter(user=self.request.user)
+
+
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        return Tag.objects.filter(user=self.request.user)
 
 
 class ItemViewSet(viewsets.ModelViewSet):
