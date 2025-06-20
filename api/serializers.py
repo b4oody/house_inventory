@@ -60,6 +60,10 @@ class RoomSerializer(serializers.ModelSerializer):
         return instance
 
 
+class RoomRetrieveSerializer(RoomSerializer):
+    apartment = ApartmentSerializer()
+
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
