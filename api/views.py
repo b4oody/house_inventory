@@ -25,7 +25,9 @@ class RoomViewSet(viewsets.ModelViewSet):
     serializer_class = RoomSerializer
 
     def get_queryset(self):
-        return Room.objects.filter(apartment__user=self.request.user)
+        return (Room.objects.select_related("apartment")
+                .filter(apartment__user=self.request.user)
+                )
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -60,7 +62,11 @@ class ItemViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
 
     def get_queryset(self):
-        return Item.objects.filter(room__apartment__user=self.request.user)
+        return (Item.objects
+                .select_related("room__apartment")
+                .prefetch_related("categories", "tags")
+                .filter(room__apartment__user=self.request.user)
+                )
 
     def get_serializer_class(self):
         if self.action == "retrieve":
