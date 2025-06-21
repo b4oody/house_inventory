@@ -84,8 +84,15 @@ class TagSerializer(serializers.ModelSerializer):
 
 class ItemSerializer(serializers.ModelSerializer):
     room = serializers.CharField()
-    categories = serializers.StringRelatedField(many=True)
-    tags = serializers.StringRelatedField(many=True)
+    categories = serializers.SlugRelatedField(
+        slug_field="category_name",
+        queryset=Category.objects.all(), many=True
+    )
+
+    tags = serializers.SlugRelatedField(
+        slug_field="tag_name",
+        queryset=Tag.objects.all(), many=True
+    )
 
     class Meta:
         model = Item
@@ -107,3 +114,63 @@ class ItemSerializer(serializers.ModelSerializer):
             "tags",
             "created_at",
         ]
+
+    def validate_item_name(self, value):
+        query = Item.objects.filter(item_name__iexact=value)
+        if self.instance:
+            query = query.exclude(pk=self.instance.pk)
+        if query.exists():
+            raise serializers.ValidationError("The Item is already exist")
+        return value
+
+    def validate_categories(self, value):
+        existing_categories_count = Category.objects.filter(category_name__in=value).count()
+        if existing_categories_count != len(value):
+            raise serializers.ValidationError("One or more categories do not exist.")
+        return value
+
+    def validate_tags(self, value):
+        existing_tags_count = Tag.objects.filter(tag_name__in=value).count()
+        if existing_tags_count != len(value):
+            raise serializers.ValidationError("One or more tags do not exist.")
+        return value
+
+    @transaction.atomic
+    def create(self, validated_data):
+        room_name = validated_data.pop("room", None)
+        list_categories = validated_data.pop("categories", None)
+        list_tags = validated_data.pop("tags", None)
+
+        room = get_object_or_404(
+            Room,
+            room_name=room_name,
+            apartment__user=self.context["request"].user
+        )
+        item = Item.objects.create(room=room, **validated_data)
+        item.categories.set(list_categories)
+        item.tags.set(list_tags)
+
+        return item
+
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        categories = validated_data.pop("categories", None)
+        tags = validated_data.pop("tags", None)
+        room_name = validated_data.pop("room", None)
+        if room_name:
+            room = get_object_or_404(
+                Room,
+                room_name=room_name,
+                apartment__user=self.context["request"].user
+            )
+            instance.room = room
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        if categories is not None:
+            instance.categories.set(categories)
+        if tags is not None:
+            instance.tags.set(tags)
+        return instance
