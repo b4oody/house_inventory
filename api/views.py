@@ -4,7 +4,7 @@ from api.serializers import (
     ApartmentSerializer,
     RoomSerializer,
     CategorySerializer,
-    ItemSerializer, TagSerializer, RoomRetrieveSerializer
+    ItemSerializer, TagSerializer, RoomRetrieveSerializer, RetrieveItemSerializer
 )
 from house_core.models import Apartment, Room, Category, Item, Tag
 
@@ -61,3 +61,8 @@ class ItemViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Item.objects.filter(room__apartment__user=self.request.user)
+
+    def get_serializer_class(self):
+        if self.action == "retrieve":
+            return RetrieveItemSerializer
+        return ItemSerializer

@@ -174,3 +174,9 @@ class ItemSerializer(serializers.ModelSerializer):
         if tags is not None:
             instance.tags.set(tags)
         return instance
+
+
+class RetrieveItemSerializer(ItemSerializer):
+    categories = CategorySerializer(many=True)
+    tags = TagSerializer(many=True)
+    room = RoomSerializer()
