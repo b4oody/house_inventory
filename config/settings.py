@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "api",
     "rest_framework.authtoken",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -162,5 +163,21 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
-    ]
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "House Inventory API",
+    "DESCRIPTION": "House Inventory API streamlines home management by "
+                   "centralizing the tracking of personal belongings, "
+                   "warranties, and household supplies. It enables users "
+                   "to efficiently add, categorize, and locate items, "
+                   "assign them to specific rooms, and upload important "
+                   "documents like receipts or manuals. The API manages "
+                   "the entire lifecycle of household assets, handling "
+                   "item data, location assignments, warranty expiration "
+                   "alerts, and inventory reports.",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
 }
