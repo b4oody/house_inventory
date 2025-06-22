@@ -1,12 +1,39 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics, permissions
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.settings import api_settings
 
 from api.serializers import (
     ApartmentSerializer,
     RoomSerializer,
     CategorySerializer,
-    ItemSerializer, TagSerializer, RoomRetrieveSerializer, RetrieveItemSerializer
+    ItemSerializer,
+    TagSerializer,
+    RoomRetrieveSerializer,
+    RetrieveItemSerializer,
+    UserSerializer
 )
 from house_core.models import Apartment, Room, Category, Item, Tag
+
+
+class CreateUserView(generics.CreateAPIView):
+    serializer_class = UserSerializer
+    permission_classes = (permissions.AllowAny,)
+
+
+class CreateTokenView(ObtainAuthToken):
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+    permission_classes = (permissions.AllowAny,)
+
+
+class ManageUserView(generics.RetrieveUpdateAPIView):
+    serializer_class = UserSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get_object(self):
+        return self.request.user
 
 
 class ApartmentViewSet(viewsets.ModelViewSet):
