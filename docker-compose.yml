@@ -11,16 +11,27 @@ services:
 
   web:
     build: .
-    command: "python manage.py runserver 0.0.0.0:8000"
+    command: "gunicorn config.wsgi:application --bind 0.0.0.0:8000"
     volumes:
-      - ./:/code
-    ports:
-      - "8000:8000"
+      - ./:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
     env_file:
       - .env
     depends_on:
       - house_inventory_db
 
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    depends_on:
+      - web
 
 volumes:
   db_house_inventory:
+  static_volume:
+  media_volume:
