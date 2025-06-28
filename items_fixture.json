@@ -3,10 +3,10 @@
     "model": "house_core.user",
     "pk": 1,
     "fields": {
-      "password": "",
+      "password": "pbkdf2_sha256$1000000$C7GKVuk9cyXuLt53cWk8pp$PkVEFU/o18Bn4yezIagqLBkenaPNqv8lSYEoHHC1OcM=",
       "last_login": null,
       "is_superuser": false,
-      "username": "demo",
+      "username": "admin",
       "first_name": "",
       "last_name": "",
       "email": "demo@example.com",
